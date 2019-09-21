@@ -2,6 +2,8 @@ const conn = require('./conn');
 const Name = require('./Name');
 const Department = require('./Department');
 
+Name.belongsTo(Department);
+
 const mapAndCreate = (items, model) => {
   return Promise.all(items.map( item => model.create(item)));
 }
@@ -14,7 +16,7 @@ const syncAndSeed = async () => {
     { name: 'bar' },
     { name: 'bazz' }
   ];
-  const [ foo, bar, bazz, quq ] = await mapAndCreate(names, Name)
+  const [ foo1, foo2, bar, bazz ] = await mapAndCreate(names, Name)
 
   const departments = [
     { name: 'FOO' },
@@ -22,14 +24,20 @@ const syncAndSeed = async () => {
     { name: 'BAZZ' },
     { name: 'QUQ' }
   ];
-  const [ foo, bar, bazz, quq ] = await mapAndCreate(names, Name)
+  const [ FOO, BAR, BAZZ, QUQ ] = await mapAndCreate(departments, Department)
 
   return {
-    products: {
-      foo,
+    names: {
+      foo1,
+      foo2,
       bar,
-      bazz,
-      quq
+      bazz
+    },
+    departments: {
+      FOO,
+      BAR,
+      BAZZ,
+      QUQ
     }
   }
 };
