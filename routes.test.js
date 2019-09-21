@@ -32,4 +32,13 @@ describe('Routes', () => {
         })
     });
   });
+  describe('POST /api/names', () => {
+    it('creates a name', () => {
+      return app.get(`/api/names/${seed.names.foo1.id}`)
+        .expect(200)
+        .then( response => {
+          expect(response.body.name).to.equal('foo1');
+        })
+    });
+  });
 })

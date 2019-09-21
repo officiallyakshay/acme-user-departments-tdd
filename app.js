@@ -3,6 +3,7 @@ const db = require('./db');
 const { Name } = db.models;
 
 const app = express();
+app.use(express.json());
 
 module.exports = app;
 
@@ -28,5 +29,12 @@ app.put('/api/names/:id', (req, res, next) => {
 app.post('/api/names', (req, res, next) => {
   Name.create(req.body)
     .then( name => res.status(201).send(name))
+    .catch(next);
+});
+
+app.delete('/api/names/:id', (req, res, next) => {
+  Name.findByPk(req.params.id)
+    .then( name => name.destroy())
+    .then( () => res.sendStatus(204))
     .catch(next);
 });

@@ -12,8 +12,5 @@ describe('DataLayer', () => {
     it('there is a foo2', () => {
       expect(seed.names.foo2.name).to.equal('foo2');
     });
-    it('foo 1 belongs to FOO category', () => {
-      
-    });
   });
 })

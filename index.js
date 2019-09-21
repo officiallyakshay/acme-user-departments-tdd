@@ -10,14 +10,6 @@ const mapAndCreate = (items, model) => {
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
-  const names = [
-    { name: 'foo1' },
-    { name: 'foo2' },
-    { name: 'bar' },
-    { name: 'bazz' }
-  ];
-  const [ foo1, foo2, bar, bazz ] = await mapAndCreate(names, Name)
-
   const departments = [
     { name: 'FOO' },
     { name: 'BAR' },
@@ -25,6 +17,14 @@ const syncAndSeed = async () => {
     { name: 'QUQ' }
   ];
   const [ FOO, BAR, BAZZ, QUQ ] = await mapAndCreate(departments, Department)
+
+  const names = [
+    { name: 'foo1', departmentId: FOO.id },
+    { name: 'foo2', departmentId: FOO.id  },
+    { name: 'bar', departmentId: BAR.id  },
+    { name: 'bazz', departmentId: BAZZ.id  }
+  ];
+  const [ foo1, foo2, bar, bazz ] = await mapAndCreate(names, Name)
 
   return {
     names: {
